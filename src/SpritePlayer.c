@@ -64,17 +64,14 @@ void Jump(){
 }
 
 void UPDATE() {
-    UINT8 i;
-
-    player_old_x = THIS->x;
-    player_old_y = THIS->y;
-
     if(KEY_PRESSED(J_RIGHT)) {
         TranslateSprite(THIS, 1 << delta_time, 0);
         THIS->mirror = NO_MIRROR;
+		PlayFx(CHANNEL_4, 4, 0x0c, 0x41, 0x30, 0xc0);
     } else if(KEY_PRESSED(J_LEFT)) {
         TranslateSprite(THIS, -1 << delta_time, 0);
         THIS->mirror = V_MIRROR;
+		PlayFx(CHANNEL_4, 4, 0x0c, 0x41, 0x30, 0xc0);
     }
 
     if(player_parent == 0) {
