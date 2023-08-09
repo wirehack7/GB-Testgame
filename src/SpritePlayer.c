@@ -9,24 +9,29 @@
 #include "SpriteManager.h"
 #include "Math.h"
 #include "Sound.h"
+#include "Print.h"
 
 //typedef signed INT8;
 //typedef signed INT16;
 //ypedef unsigned UINT8;
 //typedef unsigned UINT16;
 
-INT16 player_accel_y;
-UINT16 player_old_x, player_old_y;
-UINT8 moving = 0;
+int16_t player_accel_y;
+uint16_t player_old_x, player_old_y;
+uint8_t moving = 0;
+
+const uint8_t anim_idle[] = {2, 2, 0};
+const uint8_t anim_walk[] = {2, 1, 0};
+const uint8_t anim_jump[] = {3, 3, 3, 0};
 
 typedef enum {
 	PLAYER_STATE_IDLE,
 	PLAYER_STATE_NORMAL,
 	PLAYER_STATE_JUMPING
-}PLAYER_STATE;
+} PLAYER_STATE;
 
 PLAYER_STATE player_state;
-UINT8 tile_collision;
+uint8_t tile_collision;
 
 struct Sprite* player_parent = 0;
 
@@ -37,27 +42,18 @@ void START() {
 
 void CheckCollisionTile() {
 	switch(tile_collision) {
-		case 25u:
+		//case 25u:
 			// SET_BIT(stage_completion, current_stage);
 			//SetState(STATE_VICTORY);
-			break;
-	}
-}
-
-void MovePlayer(){
-	if(KEY_PRESSED(J_LEFT)){
-	//	tile_collision = TranslateSprite(THIS, -1, 0);
-		tile_collision = TranslateSprite(THIS, -1 << delta_time, 0);
-	}
-	else if(KEY_PRESSED(J_RIGHT)){
-	//	tile_collision = TranslateSprite(THIS, 1, 0);
-		tile_collision = TranslateSprite(THIS, 1 << delta_time, 0);
+			//break;
 	}
 }
 
 void Jump(){
+	DPrintf("Jumping!             ");
 	if(player_state != PLAYER_STATE_JUMPING) {
-		player_accel_y = -50;
+		SetSpriteAnim(THIS, anim_jump, 5);
+		player_accel_y = -30;
 		player_state = PLAYER_STATE_JUMPING;
 		player_parent = 0;
 	}
@@ -65,14 +61,28 @@ void Jump(){
 
 void UPDATE() {
     if(KEY_PRESSED(J_RIGHT)) {
+		DPrintf("Walking!             ");
         TranslateSprite(THIS, 1 << delta_time, 0);
         THIS->mirror = NO_MIRROR;
-		PlayFx(CHANNEL_4, 4, 0x0c, 0x41, 0x30, 0xc0);
-    } else if(KEY_PRESSED(J_LEFT)) {
+		SetSpriteAnim(THIS, anim_walk, 15);
+		//PlayFx(CHANNEL_4, 4, 0x0c, 0x41, 0x30, 0xc0);
+    } 
+	if(KEY_PRESSED(J_LEFT)) {
+		DPrintf("Walking!             ");
         TranslateSprite(THIS, -1 << delta_time, 0);
         THIS->mirror = V_MIRROR;
-		PlayFx(CHANNEL_4, 4, 0x0c, 0x41, 0x30, 0xc0);
+		SetSpriteAnim(THIS, anim_walk, 15);
+		//PlayFx(CHANNEL_4, 4, 0x0c, 0x41, 0x30, 0xc0);
     }
+
+	if(KEY_PRESSED(J_B)) {
+		Jump();
+	}
+
+	if(keys == 0) {
+		DPrintf("Idling!             ");
+		SetSpriteAnim(THIS, anim_idle, 3);
+	}
 
     if(player_parent == 0) {
 		if(player_accel_y < 60) {

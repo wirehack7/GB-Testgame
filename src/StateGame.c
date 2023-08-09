@@ -4,29 +4,23 @@
 #include "Scroll.h"
 #include "SpriteManager.h"
 
-#ifndef NDEBUG
-#define NDEBUG
-#endif
-
 #include "Print.h"
 IMPORT_TILES(font);
 
 IMPORT_MAP(map);
 
-UINT8 collision_tiles[] = {1, 0};
+uint8_t collision_tiles[] = {1, 0};
 
 void START() {
-	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
+	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 20);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
 
-	#ifdef NDEBUG
-	INIT_CONSOLE(font, 3);
-	DPrintf("Started!");
-	#endif
+	INIT_CONSOLE(font, 1);
+	DPrintf("Level started..");
 
-	NR52_REG = 0x80; //Enables sound, you should always setup this first
-	NR51_REG = 0xFF; //Enables all channels (left and right)
-	NR50_REG = 0x77; //Max volume
+	NR52_REG = 0x80;
+	NR51_REG = 0xFF;
+	NR50_REG = 0x77;
 }
 
 void UPDATE() {
