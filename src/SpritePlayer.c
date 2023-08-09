@@ -9,6 +9,7 @@
 #include "SpriteManager.h"
 #include "Math.h"
 #include "Sound.h"
+#include "Sounds.h"
 #include "Print.h"
 
 //typedef signed INT8;
@@ -52,7 +53,8 @@ void CheckCollisionTile() {
 void Jump(){
 	DPrintf("Jumping!             ");
 	if(player_state != PLAYER_STATE_JUMPING) {
-		SetSpriteAnim(THIS, anim_jump, 5);
+		PlayFx(FX_JUMP);
+		SetSpriteAnim(THIS, anim_jump, 10);
 		player_accel_y = -30;
 		player_state = PLAYER_STATE_JUMPING;
 		player_parent = 0;

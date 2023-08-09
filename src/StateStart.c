@@ -4,18 +4,17 @@
 #include "Scroll.h"
 #include "SpriteManager.h"
 #include "Print.h"
+#include "Keys.h"
 
-IMPORT_MAP(map);
+IMPORT_MAP(hud);
 IMPORT_TILES(font);
 
-uint8_t collision_tiles[] = {1, 0};
-
 void START() {
-	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 20);
-	InitScroll(BANK(map), &map, collision_tiles, 0);
+    INIT_HUD(hud);
+    INIT_FONT(font, PRINT_WIN);
 
-	INIT_CONSOLE(font, 1);
-	DPrintf("Level started..");
+    PRINT(6, 2, "TestGame");
+    PRINT(4, 5, "Press START!");
 
 	NR52_REG = 0x80;
 	NR51_REG = 0xFF;
@@ -23,4 +22,7 @@ void START() {
 }
 
 void UPDATE() {
+    if(KEY_PRESSED(J_START)) {
+        SetState(StateGame);
+    }
 }

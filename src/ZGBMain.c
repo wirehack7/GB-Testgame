@@ -1,7 +1,7 @@
 #include "ZGBMain.h"
 #include "Math.h"
 
-uint8_t next_state = StateGame;
+uint8_t next_state = StateStart;
 
 uint8_t GetTileReplacement(uint8_t* tile_ptr, uint8_t* tile) {
 	if(current_state == StateGame) {
