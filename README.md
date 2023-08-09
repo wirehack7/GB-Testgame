@@ -1,2 +1,3 @@
-# ZGB-template
-A template for projects using [ZGB](https://github.com/Zal0/ZGB), A little engine for creating games for the original GameBoy
+# Testgame
+
+Just a small test to learn coding in C für GB.
