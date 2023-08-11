@@ -54,7 +54,7 @@ void Jump(){
 	DPrintf("Jumping!             ");
 	if(player_state != PLAYER_STATE_JUMPING) {
 		PlayFx(FX_JUMP);
-		SetSpriteAnim(THIS, anim_jump, 10);
+		SetSpriteAnim(THIS, anim_jump, 8);
 		player_accel_y = -30;
 		player_state = PLAYER_STATE_JUMPING;
 		player_parent = 0;
@@ -91,18 +91,11 @@ void UPDATE() {
 			player_accel_y += 2;
 		}
 		tile_collision = TranslateSprite(THIS, 0, (player_accel_y >> 4));
-		if(!tile_collision && delta_time != 0 && player_accel_y < 40) { //Do another iteration if there is no collision
+		if(!tile_collision && delta_time != 0 && player_accel_y < 40) {
 			player_accel_y += 2;
 			tile_collision = TranslateSprite(THIS, 0, (player_accel_y >> 4));
 		}
 		if(tile_collision) {
-			if(tile_collision != 3u && tile_collision != 4u) {
-				player_accel_y = 0;
-				if(player_state == PLAYER_STATE_JUMPING) {
-					player_state = PLAYER_STATE_NORMAL;
-				}
-			}
-
 			 CheckCollisionTile();
 		}
 	}
