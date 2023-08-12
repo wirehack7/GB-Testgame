@@ -48,13 +48,14 @@ void CheckCollisionTile() {
 			//SetState(STATE_VICTORY);
 			//break;
 	}
+	player_state = PLAYER_STATE_NORMAL;
 }
 
 void Jump(){
 	DPrintf("Jumping!             ");
 	if(player_state != PLAYER_STATE_JUMPING) {
 		PlayFx(FX_JUMP);
-		SetSpriteAnim(THIS, anim_jump, 8);
+		SetSpriteAnim(THIS, anim_jump, 10);
 		player_accel_y = -30;
 		player_state = PLAYER_STATE_JUMPING;
 		player_parent = 0;
@@ -81,6 +82,19 @@ void UPDATE() {
 		Jump();
 	}
 
+	if(KEY_PRESSED(J_START)) {
+		DPrintf("Paused!         ");
+		print_target = PRINT_BKG;
+		// TODO: how to remove this after unpause??? might use WINDOW for this (aka HUD)
+		PRINT(0, 0, "        PAUSED       ");
+		HIDE_SPRITES;
+		waitpadup();
+		waitpad(J_A | J_B | J_START);
+		waitpadup();
+		UPDATE_KEYS();
+		SHOW_SPRITES;
+	}
+
 	if(keys == 0) {
 		DPrintf("Idling!             ");
 		SetSpriteAnim(THIS, anim_idle, 3);
@@ -99,8 +113,6 @@ void UPDATE() {
 			 CheckCollisionTile();
 		}
 	}
-
-
 }
 
 void DESTROY() {

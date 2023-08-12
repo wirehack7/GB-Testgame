@@ -22,6 +22,7 @@ void START() {
 void UPDATE() {
     PRINT(5, 12, "Press START");
     if(KEY_PRESSED(J_START)) {
+        UPDATE_KEYS();
         SetState(StateGame);
     }
 }

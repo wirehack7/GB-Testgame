@@ -14,6 +14,7 @@ void START() {
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 20);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
 
+	INIT_FONT(font, PRINT_BKG);
 	INIT_CONSOLE(font, 1);
 	DPrintf("Level started..");
 
