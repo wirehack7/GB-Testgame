@@ -3,6 +3,8 @@
 #include "ZGBMain.h"
 #include "Sprite.h"
 #include "SpriteManager.h"
+#include "Sound.h"
+#include "Sounds.h"
 
 void performantdelay(uint8_t numloops) BANKED;
 
@@ -16,6 +18,7 @@ void UPDATE() {
         TranslateSprite(THIS, 0, 1 << delta_time);
     }
     if(THIS->y > 65) {
+        PlayFx(LOGO);
         performantdelay(100);
         SetState(StateStart);
     }
