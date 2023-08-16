@@ -23,6 +23,7 @@ void START() {
 	INIT_FONT(font, PRINT_BKG);
 	INIT_CONSOLE(font, 1);
 
+	/*
 	#ifdef DEBUGGING
 
 	// just fun with randomness
@@ -41,6 +42,7 @@ void START() {
 	DPrintf("runs %i - num %i", i, randn);
 
 	#endif
+	*/
 	
 	//DPrintf("Level started..");
 
