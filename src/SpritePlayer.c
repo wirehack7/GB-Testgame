@@ -57,7 +57,6 @@ void CheckCollisionTile() {
 }
 
 void Jump(){
-	DPrintf("Jumping!             ");
 	if(player_state != PLAYER_STATE_JUMPING) {
 		PlayFx(FX_JUMP);
 		SetSpriteAnim(THIS, anim_jump, 10);
@@ -76,14 +75,12 @@ void UPDATE() {
 		SetState(StateGame);
 	}
     if(KEY_PRESSED(J_RIGHT)) {
-		DPrintf("Walking!             ");
         TranslateSprite(THIS, 1 << delta_time, 0);
         THIS->mirror = NO_MIRROR;
 		SetSpriteAnim(THIS, anim_walk, 15);
 		//PlayFx(CHANNEL_4, 4, 0x0c, 0x41, 0x30, 0xc0);
     } 
 	if(KEY_PRESSED(J_LEFT)) {
-		DPrintf("Walking!             ");
         TranslateSprite(THIS, -1 << delta_time, 0);
         THIS->mirror = V_MIRROR;
 		SetSpriteAnim(THIS, anim_walk, 15);
@@ -118,7 +115,6 @@ void UPDATE() {
 	}
 
 	if(keys == 0) {
-		DPrintf("Idling!             ");
 		SetSpriteAnim(THIS, anim_idle, 3);
 	}
 
