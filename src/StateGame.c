@@ -33,7 +33,7 @@ void START() {
 	for( i = 0 ; i < n ; i++ ) {
 		// get random number between 4 and 15 (add +1 to first integer!)
 		randn = rand() % 12 + 4;
-		if(randn > 15 || randn < 4) {
+		if(randn > 15 && randn < 4) {
 			DPrintf("Wrong Number: %i", randn);
 			waitpad(J_A | J_B | J_START);
 		}
