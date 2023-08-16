@@ -2,7 +2,7 @@
 
 Just a small test to learn coding in C für GB.
 
-It uses ZGB
+It uses [ZGB](https://github.com/Zal0/ZGB)
 
 ## Notes
 
