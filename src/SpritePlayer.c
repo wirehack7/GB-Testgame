@@ -11,6 +11,9 @@
 #include "Sound.h"
 #include "Sounds.h"
 #include "Print.h"
+#include "Music.h"
+
+DECLARE_MUSIC(synthesizer);
 
 //typedef signed INT8;
 //typedef signed INT16;
@@ -35,6 +38,8 @@ PLAYER_STATE player_state;
 uint8_t tile_collision;
 
 struct Sprite* player_parent = 0;
+
+void performantdelay(uint8_t numloops) BANKED;
 
 void START() {
     player_accel_y = 0;
@@ -63,6 +68,13 @@ void Jump(){
 }
 
 void UPDATE() {
+	if(THIS->y > 260) {
+		StopMusic;
+		performantdelay(10);
+		PlayFx(FX_HIT);
+		performantdelay(30);
+		SetState(StateGame);
+	}
     if(KEY_PRESSED(J_RIGHT)) {
 		DPrintf("Walking!             ");
         TranslateSprite(THIS, 1 << delta_time, 0);
@@ -83,16 +95,26 @@ void UPDATE() {
 	}
 
 	if(KEY_PRESSED(J_START)) {
+		PlayFx(FX_PICKUP);
+		performantdelay(20);
+		NR51_REG = 0x00;
+		NR50_REG = 0x00;
+		hUGE_paused = TRUE;
 		DPrintf("Paused!         ");
 		print_target = PRINT_BKG;
 		// TODO: how to remove this after unpause??? might use WINDOW for this (aka HUD)
-		PRINT(0, 0, "        PAUSED       ");
+		// PRINT(0, 0, "        PAUSED       ");
 		HIDE_SPRITES;
 		waitpadup();
 		waitpad(J_A | J_B | J_START);
 		waitpadup();
 		UPDATE_KEYS();
 		SHOW_SPRITES;
+		hUGE_paused = FALSE;
+		NR51_REG = 0xFF;
+		NR50_REG = 0x77;
+		PlayFx(FX_PICKUP);
+		performantdelay(20);
 	}
 
 	if(keys == 0) {
