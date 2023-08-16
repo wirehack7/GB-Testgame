@@ -1,24 +1,24 @@
 #include "Banks/SetAutoBank.h"
 
-#include <gb/gb.h>
 #include "ZGBMain.h"
 #include "Sprite.h"
-#include "Scroll.h"
 #include "SpriteManager.h"
-#include "Math.h"
-#include "Sound.h"
-#include "Sounds.h"
-#include "Print.h"
-#include "Palette.h"
-#include "Vector.h"
+
+void performantdelay(uint8_t numloops) BANKED;
 
 void START() {
-
+   
 }
 
 void UPDATE() {
-    TranslateSprite(THIS, 0, 1 << delta_time);
-
+    // Don't do while() in UPDATE() loop!
+    if(THIS->y <= 65) {
+        TranslateSprite(THIS, 0, 1 << delta_time);
+    }
+    if(THIS->y > 65) {
+        performantdelay(100);
+        SetState(StateStart);
+    }
 }
 
 void DESTROY() {
