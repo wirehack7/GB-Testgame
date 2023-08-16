@@ -38,8 +38,8 @@ void START() {
 			waitpad(J_A | J_B | J_START);
 		}
 	}
-	DPrintf("%i-%i", i, randn);
-	
+	DPrintf("runs %i - num %i", i, randn);
+
 	#endif
 	
 	//DPrintf("Level started..");
