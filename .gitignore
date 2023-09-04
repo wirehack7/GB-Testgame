@@ -264,3 +264,6 @@ paket-files/
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Don't upload music files because of licenses
+*.uge
