@@ -96,7 +96,7 @@ void UPDATE() {
 		performantdelay(20);
 		NR51_REG = 0x00;
 		NR50_REG = 0x00;
-		hUGE_paused = TRUE;
+		hUGE_paused = 1;
 		DPrintf("Paused!         ");
 		print_target = PRINT_BKG;
 		// TODO: how to remove this after unpause??? might use WINDOW for this (aka HUD)
@@ -107,7 +107,7 @@ void UPDATE() {
 		waitpadup();
 		UPDATE_KEYS();
 		SHOW_SPRITES;
-		hUGE_paused = FALSE;
+		hUGE_paused = 0;
 		NR51_REG = 0xFF;
 		NR50_REG = 0x77;
 		PlayFx(FX_PICKUP);
@@ -134,4 +134,5 @@ void UPDATE() {
 }
 
 void DESTROY() {
+	
 }

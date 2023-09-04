@@ -11,6 +11,7 @@
 #define DEBUGGING
 
 IMPORT_MAP(map);
+IMPORT_MAP(hud);
 IMPORT_TILES(font);
 DECLARE_MUSIC(synthesizer);
 
@@ -20,8 +21,10 @@ void START() {
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 214);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
 
-	INIT_FONT(font, PRINT_BKG);
+	INIT_FONT(font, PRINT_WIN);
 	INIT_CONSOLE(font, 1);
+
+	INIT_HUD(hud);
 
 	/*
 	#ifdef DEBUGGING
@@ -43,9 +46,9 @@ void START() {
 
 	#endif
 	*/
-	
-	//DPrintf("Level started..");
 
+	//DPrintf("Level started..");
+	DPrintf("State: %s", current_state);
 	PlayMusic(synthesizer, 1);
 	NR52_REG = 0x80;
 	NR51_REG = 0xFF;
