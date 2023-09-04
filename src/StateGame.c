@@ -13,7 +13,7 @@
 IMPORT_MAP(map);
 IMPORT_MAP(hud);
 IMPORT_TILES(font);
-DECLARE_MUSIC(synthesizer);
+DECLARE_MUSIC(bsp1psmd);
 
 uint8_t collision_tiles[] = {1, 0};
 
@@ -49,7 +49,7 @@ void START() {
 
 	//DPrintf("Level started..");
 	DPrintf("State: %s", current_state);
-	PlayMusic(synthesizer, 1);
+	PlayMusic(bsp1psmd, 1);
 	NR52_REG = 0x80;
 	NR51_REG = 0xFF;
 	NR50_REG = 0x77;
